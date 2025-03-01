@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon CRUD</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Pokemon CRUD</h1>
+    <form id="search-form">
+        <label for="pokemon-name">Nombre del Pokemon:</label>
+        <input type="text" id="pokemon-name" placeholder="Introduce el nombre del Pokemon" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="loading" style="display:none;">Cargando...</div>
+    <div id="error-message" style="color:red;"></div>
+    <div id="pokemon-info"></div>
+    <ul id="saved-pokemon-list"></ul>
+    <script src="/static/script.js"></script>
+</body>
+</html>

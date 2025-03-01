@@ -1,0 +1,26 @@
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon History</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Pokemon Search History</h1>
+    <ul id="history-list"></ul>
+    <script>
+        fetch('/api/pokemon/history')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('history-list');
+                data.forEach(pokemon => {
+                    const item = document.createElement('li');
+                    item.textContent = `${pokemon.name} - Height: ${pokemon.height}, Weight: ${pokemon.weight}`;
+                    list.appendChild(item);
+                });
+            });
+    </script>
+</body>
+</html>
