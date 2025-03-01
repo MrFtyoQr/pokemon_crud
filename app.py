@@ -9,7 +9,7 @@ import os
 load_dotenv()
 
 app = FastAPI(title="Pokemon CRUD API", description="API para gestionar Pokémon con CouchDB", version="1.0")
-app.include_router(pokemon_router, prefix="/api")  # Eliminar el prefijo adicional
+app.include_router(pokemon_router)  # Eliminar el prefijo adicional
 
 # Servir archivos estáticos y plantillas
 app.mount("/static", StaticFiles(directory="static"), name="static")

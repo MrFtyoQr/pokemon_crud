@@ -28,3 +28,8 @@ class CouchDB:
     def delete_pokemon(self, pokemon_id: str, rev: str):
         response = requests.delete(f"{self.db_url}/{self.pokemon_db}/{pokemon_id}?rev={rev}", auth=self.auth)
         return response.json()
+    
+    def update_pokemon(self, pokemon: dict):
+        response = requests.put(f"{self.db_url}/{self.pokemon_db}/{pokemon['_id']}", json=pokemon, auth=self.auth)
+        return response.json()
+

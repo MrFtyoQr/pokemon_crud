@@ -17,6 +17,7 @@ async def save_pokemon(pokemon: PokemonModel):
 async def get_saved_pokemon():
     return service.get_saved_pokemon()
 
+
 @router.get("/history")
 async def get_history():
     return service.get_history()
@@ -24,3 +25,7 @@ async def get_history():
 @router.delete("/delete/{pokemon_id}/{rev}")
 async def delete_pokemon(pokemon_id: str, rev: str):
     return service.delete_pokemon(pokemon_id, rev)
+
+@router.put("/update/{pokemon_id}")
+async def update_pokemon(pokemon_id: str, updated_pokemon: PokemonModel):
+    return service.update_pokemon(pokemon_id, updated_pokemon)
