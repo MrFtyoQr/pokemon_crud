@@ -1,7 +1,11 @@
-import requests
+import logging
 from data_access.coach_db import CouchDB
-from models.pokemon_models import PokemonModel
 from fastapi import HTTPException
+from models.pokemon_models import PokemonModel
+import requests
+
+# Configurar logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class PokemonService:
     def __init__(self):
@@ -9,10 +13,10 @@ class PokemonService:
         self.base_url = "https://pokeapi.co/api/v2/pokemon"
 
     def get_pokemon(self, name: str):
-        print(f"Buscando Pokémon: {name}")  # DEBUG
+        logging.info(f"Buscando Pokémon: {name}")  # ✅ Reemplazo de print por logging
         response = requests.get(f"{self.base_url}/{name}")
         if response.status_code != 200:
-            print(f"Error al obtener el Pokémon: {response.status_code}")  # DEBUG
+            logging.error(f"Error al obtener el Pokémon: {response.status_code}")  # ✅ Logging en caso de error
             raise HTTPException(status_code=404, detail="Pokemon not found")
         
         data = response.json()
@@ -20,7 +24,7 @@ class PokemonService:
             "name": data.get("name"),
             "height": data.get("height"),
             "weight": data.get("weight"),
-            "types": [t["type"]["name"] for t in data["types"]],  # ✅ Se agregó types
+            "types": [t["type"]["name"] for t in data["types"]],
             "abilities": [a["ability"]["name"] for a in data["abilities"]],
         }
 
@@ -32,14 +36,13 @@ class PokemonService:
 
     def get_saved_pokemon(self):
         saved_pokemon = self.db.get_saved_pokemon()
-        print("✅ Pokémon guardados en la BD:", saved_pokemon)  # 🔍 DEBUG
+        logging.info(f"✅ Pokémon guardados en la BD: {saved_pokemon}")  # ✅ Logging en lugar de print
 
         if not saved_pokemon:
+            logging.warning("No saved Pokémon found")  # ✅ Logging de advertencia si no hay datos
             raise HTTPException(status_code=404, detail="No saved Pokémon found")
 
         return saved_pokemon
-
-
 
     def get_history(self):
         return self.db.get_history()
@@ -50,11 +53,12 @@ class PokemonService:
     def update_pokemon(self, pokemon_id: str, updated_pokemon: PokemonModel):
         pokemon_data = self.db.get_pokemon_by_id(pokemon_id)
         if not pokemon_data:
+            logging.error(f"Pokemon con ID {pokemon_id} no encontrado para actualizar")  # ✅ Logging de error
             raise HTTPException(status_code=404, detail="Pokemon not found")
 
-        updated_pokemon_dict = updated_pokemon.dict()  # ✅ Convertir a diccionario
-        updated_pokemon_dict["_id"] = pokemon_id  # ✅ Ahora se puede modificar
-        updated_pokemon_dict["_rev"] = pokemon_data["_rev"]  # ✅ Mantener la revisión correcta
+        updated_pokemon_dict = updated_pokemon.dict()
+        updated_pokemon_dict["_id"] = pokemon_id
+        updated_pokemon_dict["_rev"] = pokemon_data["_rev"]
 
+        logging.info(f"Actualizando Pokémon con ID {pokemon_id}")  # ✅ Logging de actualización
         return self.db.update_pokemon(updated_pokemon_dict)
-
