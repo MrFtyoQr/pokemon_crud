@@ -1,5 +1,6 @@
 import requests
 from data_access.coach_db import CouchDB
+from models.pokemon_models import PokemonModel
 from fastapi import HTTPException
 
 class PokemonService:
@@ -31,10 +32,13 @@ class PokemonService:
 
     def get_saved_pokemon(self):
         saved_pokemon = self.db.get_saved_pokemon()
-        print("Pokémon guardados en BD:", saved_pokemon)  # 🔍 DEBUG
+        print("✅ Pokémon guardados en la BD:", saved_pokemon)  # 🔍 DEBUG
+
         if not saved_pokemon:
             raise HTTPException(status_code=404, detail="No saved Pokémon found")
+
         return saved_pokemon
+
 
 
     def get_history(self):
@@ -43,12 +47,14 @@ class PokemonService:
     def delete_pokemon(self, pokemon_id: str, rev: str):
         return self.db.delete_pokemon(pokemon_id, rev)
 
-    def update_pokemon(self, pokemon_id: str, updated_pokemon: dict):
+    def update_pokemon(self, pokemon_id: str, updated_pokemon: PokemonModel):
         pokemon_data = self.db.get_pokemon_by_id(pokemon_id)
         if not pokemon_data:
             raise HTTPException(status_code=404, detail="Pokemon not found")
 
-        updated_pokemon["_id"] = pokemon_id  # Mantener el mismo ID
-        updated_pokemon["_rev"] = pokemon_data["_rev"]  # Mantener la revisión correcta
+        updated_pokemon_dict = updated_pokemon.dict()  # ✅ Convertir a diccionario
+        updated_pokemon_dict["_id"] = pokemon_id  # ✅ Ahora se puede modificar
+        updated_pokemon_dict["_rev"] = pokemon_data["_rev"]  # ✅ Mantener la revisión correcta
 
-        return self.db.update_pokemon(updated_pokemon)
+        return self.db.update_pokemon(updated_pokemon_dict)
+

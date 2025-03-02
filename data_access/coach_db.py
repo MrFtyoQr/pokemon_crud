@@ -19,7 +19,25 @@ class CouchDB:
 
     def get_saved_pokemon(self):
         response = requests.get(f"{self.db_url}/{self.pokemon_db}/_all_docs?include_docs=true", auth=self.auth)
-        return [doc["doc"] for doc in response.json().get("rows", [])]
+        print("🔍 Respuesta de CouchDB:", response.json())  # 🔍 DEBUG
+
+        if response.status_code != 200:
+            print("❌ Error al obtener los Pokémon guardados:", response.text)
+            return []
+
+        docs = response.json().get("rows", [])
+        return [doc["doc"] for doc in docs]
+    
+    def get_pokemon_by_id(self, pokemon_id: str):
+        response = requests.get(f"{self.db_url}/{self.pokemon_db}/{pokemon_id}", auth=self.auth)
+        
+        if response.status_code != 200:
+            print(f"❌ Error al obtener el Pokémon con ID {pokemon_id}: {response.text}")  # 🔍 Debug
+            return None
+
+        return response.json()
+
+
 
     def get_history(self):
         response = requests.get(f"{self.db_url}/{self.history_db}/_all_docs?include_docs=true", auth=self.auth)
