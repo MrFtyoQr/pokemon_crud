@@ -19,7 +19,7 @@ class CouchDB:
 
     def get_saved_pokemon(self):
         response = requests.get(f"{self.db_url}/{self.pokemon_db}/_all_docs?include_docs=true", auth=self.auth)
-        print("🔍 Respuesta de CouchDB:", response.json())  # 🔍 DEBUG
+        print("🔍 Respuesta de CouchDB:", response.json())  
 
         if response.status_code != 200:
             print("❌ Error al obtener los Pokémon guardados:", response.text)
@@ -36,9 +36,6 @@ class CouchDB:
             return None
 
         return response.json()
-
-
-
 
 
     def delete_pokemon(self, pokemon_id: str, rev: str):
