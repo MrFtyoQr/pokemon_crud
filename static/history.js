@@ -6,7 +6,7 @@ function loadHistory() {
     fetch('/api/pokemon/saved')
         .then(response => response.json())
         .then(data => {
-            console.log("Pokémon guardados:", data); // 🔍 Debug
+            console.log("Pokémon guardados:", data);
             
             if (!Array.isArray(data)) {
                 console.error("❌ Error: Respuesta inesperada:", data);
@@ -19,7 +19,7 @@ function loadHistory() {
             data.forEach(pokemon => {
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
-                    <strong>${pokemon.name.toUpperCase()}</strong> - Altura: ${pokemon.height}, Peso: ${pokemon.weight}
+                    <strong>${pokemon.name.toUpperCase()}</strong> - Altura: ${pokemon.height}, Peso: ${pokemon.weight}, Tipos: ${pokemon.types.join(", ")}, Habilidades: ${pokemon.abilities.join(", ")}
                     <button onclick="deletePokemon('${pokemon._id}', '${pokemon._rev}')">Eliminar</button>
                     <button onclick="editPokemon('${pokemon._id}', '${pokemon._rev}', '${pokemon.name}', ${pokemon.height}, ${pokemon.weight})">Editar</button>
                 `;
@@ -35,7 +35,7 @@ function deletePokemon(id, rev) {
         .then(response => response.json())
         .then(result => {
             alert("Pokémon eliminado correctamente!");
-            loadHistory(); // Recargar lista después de eliminar
+            loadHistory(); 
         })
         .catch(error => console.error("❌ Error al eliminar Pokémon:", error));
 }
@@ -62,7 +62,7 @@ function editPokemon(id, rev, name, height, weight) {
         .then(response => response.json())
         .then(result => {
             alert("Pokémon actualizado correctamente!");
-            loadHistory(); // Recargar lista después de actualizar
+            loadHistory(); 
         })
         .catch(error => console.error("❌ Error al actualizar Pokémon:", error));
     }

@@ -5,11 +5,11 @@ from models.pokemon_models import PokemonModel
 router = APIRouter(prefix="/api/pokemon", tags=["Pokemon"])
 service = PokemonService()
 
-@router.get("/saved")  # ✅ Primero se define esta ruta específica
+@router.get("/saved")  
 async def get_saved_pokemon():
     return service.get_saved_pokemon()
 
-@router.get("/{name}")  # ⬅️ Luego se define la búsqueda por nombre
+@router.get("/{name}")  
 async def get_pokemon(name: str):
     return service.get_pokemon(name)
 

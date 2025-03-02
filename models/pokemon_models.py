@@ -5,8 +5,8 @@ class PokemonModel(BaseModel):
     name: str
     height: int
     weight: int
-    types: List[str]  # ✅ Asegurar que se recibe una lista
-    abilities: List[str]  # ✅ Asegurar que se recibe una lista
+    types: List[str]  
+    abilities: List[str]  
 
 class PokemonResponse(PokemonModel):
     id: Optional[str]

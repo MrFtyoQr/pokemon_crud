@@ -39,9 +39,7 @@ class CouchDB:
 
 
 
-    def get_history(self):
-        response = requests.get(f"{self.db_url}/{self.history_db}/_all_docs?include_docs=true", auth=self.auth)
-        return [doc["doc"] for doc in response.json().get("rows", [])]
+
 
     def delete_pokemon(self, pokemon_id: str, rev: str):
         response = requests.delete(f"{self.db_url}/{self.pokemon_db}/{pokemon_id}?rev={rev}", auth=self.auth)
