@@ -3,7 +3,7 @@ import requests
 
 
 class CouchDB:
-    def __init__(self, db_url: str = "http://127.0.0.1:5984", user: str = "joseph", password: str = "54321"):
+    def __init__(self, db_url: str = "http://127.0.0.1:5984", user: str = "luisdaniel", password: str = "daniel123"):
         self.db_url = db_url
         self.auth = (user, password)
         self.pokemon_db = "crud-pokemon"
