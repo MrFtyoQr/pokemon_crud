@@ -1,95 +1,71 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    margin: 0;
-    padding: 0;
-    background-size: contain;
-    background-position: center;
-    transition: background-image 1.5s ease-in-out;
-    animation: changeBackground 15s infinite;
-    color: white;
-}
-
-@keyframes changeBackground {
-    0% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'); }
-    16% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png'); }
-    32% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png'); }
-    48% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png'); }
-    64% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/249.png'); }
-    80% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/382.png'); }
-    100% { background-image: url('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png'); }
+    background-color: #f0f0f0;
 }
 
 h1 {
-    font-size: 2.5rem;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
-    color: black;
+    color: #ffcc00;
+    text-shadow: 2px 2px #000;
 }
 
-form {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    display: inline-block;
-    margin-top: 20px;
-}
-
-input {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    width: 200px;
-    text-align: center;
-}
-
-button {
-    background-color: #ffcc00;
-    border: none;
-    padding: 10px 20px;
+input, button {
     margin: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-button:hover {
-    background-color: #ff9900;
-}
-
-#loading {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-#error-message {
-    color: red;
-    font-size: 1.2rem;
-    margin-top: 10px;
-}
-
-#pokemon-info {
-    margin-top: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-radius: 10px;
-    display: inline-block;
-    max-width: 400px;
+    padding: 5px;
 }
 
 ul {
     list-style-type: none;
     padding: 0;
-    margin-top: 20px;
 }
 
 li {
-    background: rgba(255, 255, 255, 0.9);
-    color: black;
-    padding: 10px;
     margin: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.pokemon-label {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.pokemon-input {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #ffcc00;
     border-radius: 5px;
-    font-size: 1.2rem;
+    font-size: 1em;
+}
+
+.pokemon-button {
+    margin: 10px;
+    padding: 10px 20px;
+    background-color: #ffcc00;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pokemon-button:hover {
+    background-color: #ff9900;
+}
+
+.pokemon-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.pokemon-list li {
+    margin: 10px 0;
+    padding: 15px;
+    border: 2px solid #ffcc00;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
